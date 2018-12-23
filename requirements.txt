@@ -1,5 +1,2 @@
-pyric
-PyRIC
-netaddr
 scapy
-tabulate
+pyric

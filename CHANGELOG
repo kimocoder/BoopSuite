@@ -1,3 +1,92 @@
+Changelog: 3.0.0:
+    Modernized the code base for extensibility
+    Changed EVERYTHING
+
+Changelog: 2.0.1:
+    Lots of bug fixes thanks to C0rndogs < Like the name btw.
+    Making a release version here.
+
+Changelog: 2.0.0:
+   Updated literally everything.
+
+Changelog: 1.1.0:
+    Sniffer updated from beta branch: new_master
+    updater script... updated.
+    readme updated.
+    installer script made to only use apt-get. Cause Kali linux.
+
+Changelog: 1.0.1
+    Sniffer has a new gui that looks alot better
+    Images for gui have been updated.
+    Lots of little nit picky code fixes.
+
+    Added boopdate but it is empty, dont worry about it for now.
+
+Changelog: 1.0.0
+    Removed almost all globals
+    Made the sniffer a class to better handle system calls.
+    Profiled alot of code and optimized several pieces.
+    Removed reporting - will readd in a later Update
+    Began work on an updater script.
+    Readded semicolons because it is my project and I prefer them.
+
+Changelog: 0.16.4
+  Sped up the channel change process by .01 seconds per iteration.
+  Removed the --attack and -s switch from the sniffer script and will instead bolster the deauth script.
+  Added a printout at the bottom for refresh rate to determine how good a terminal handles python.
+  Removed Splash print in sniffer - Didn't feel like the user needed reminding what tool they were using.
+  Removed the -u switch from the deauth script. Not sure why it was ever there...
+  Removed the need for the tabulate library entirely.
+  Will be fixing the deauth printing in a future update.
+
+Changelog: 0.16.3
+  Made the print tables by hand which reduced the buffer time by 50-66%
+  Eliminated most of the var type casts. - saving a lot of time.
+  Eliminated the need for tabulate in the sniffer script and will do the same for the deauth script. - 0.16.5
+  Updated images to reflect current development state.
+    - Waiting for more Feedback!
+
+Changelog: 0.16.2
+  Removed all global variables save 1 in the sniffer
+  Edited all the scripts to include some better exceptions and overall look and feel
+  Added color to the top bar of the Sniffer
+  Used a better console clearing command in the sniffer.
+  Added Tshark to the install.py requirements.
+  Added a packet command switch to the deauther so you can specify how many deauths to send.
+    - Allows for bursts of deauthentication.
+  Changed the < Unknown > vendor to < NA >
+  Fixed the WPA2:WPA issue that happened occasionally.
+
+Changelog: 0.16.1
+  Figured out how to tell which order the handshake packets arrive in. AWESOME.
+  Some generic fixes and optimizations w/ more to come.
+  Added the deauth script to the install script.
+  Made the top bar read "Booped: " instead of "BOOPED: " - Just thought it looked better.
+  In boopstrike added a second sorting criteria.
+  Major mods to the readme file
+  Added additional longhand command switches.
+
+Changelog: 0.16.0
+  Added a deauth attack to the sniffer script using the --attack command switch.
+    - Quickens the time needed to sniff handshakes.
+      - Quite evil. Persistent attack method.
+  Added a skip option for the --attack switch.
+  Some Bug Fixes
+
+Changelog: 0.15.8
+  Working on deauth script begins
+  Lots of bug fixes. like a lot.
+
+Changelog: 0.15.7
+    Added a pop up window for the GUI to display extra info on a client or an access point.
+
+Changelog: 0.15.6.1
+    Added link to donate via paypal
+
+Changelog: 0.15.6
+    Added the initial beacon captured to the pcap file for that network
+        > Meaning that specifying the essid of the network is no longer required.
+
 Changelog: 0.15.5
     Added a monitor mode script
     updated readme
@@ -16,7 +105,7 @@ Changelog: 0.15.3.1
     Thanks to etem @ https://github.com/etem for reporting.
 
 Changelog: 0.15.3
-    Removed semicolons
+    Removed semicolons - Will add them back later.
     Took out some of the expensive thread calls
     Actually updated the version number this time.
     Added a catcher to the sniffer thread that has caused alot of speed improvements.

@@ -1,171 +1,92 @@
-BoopSuite
+Boop ~ Slitherin' on yo wifi 🐍🐍🐍
 ===
 
-# Synopsis:
+![alt text](Images/facebook_cover_photo_2.png)
 
-BoopSuite is an up and coming suite of wireless tools designed to be easy to use
-and powerful in scope, written in python with semicolons, because I hate children.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CodeFactor](https://www.codefactor.io/repository/github/misterbianco/boopsuite/badge)](https://www.codefactor.io/repository/github/misterbianco/boopsuite)
 
-![This Used To Be An Image But Now It Is Not. :(](Images/Run.png "BoopSuite")
+### Synopsis:
 
-## Why use this over aircrack-ng?
+BoopSuite is a wireless testing suite with extensible and independent components.
 
-This project is easier to use, identifies clients more quickly than airodump-ng,
-and displays less useless information. Additionally I can take requests and build
-them out as I continue to develop this project.
+Need to hop wireless channels?         ... ✅
 
-Don't mistake me, aircrack is an amazing suite of tools and I understand the thought of
-\"why use a different tool when airodump is still very usable\", and the answer
-is because change is good, and this project is going to continue to grow as I
-add new handlers for additional packet types.
+Need to only work with beacon packets? ... ✅
 
-The project now has a GUI!
-The project now has a monitor mode enabling script.
+Need to Monitor Deauth requests?       ... ✅
 
-Changelog located in CHANGELOG file.
+### The suite mimics flask!
 
-Hopefully others find it useful. If you do please email me and let me know I
-would love to hear about it.
+```
+#!/usr/bin/env python3
 
-## What else is coming?
+import boop
+import time
 
-I am going to add scripts to do the following:
-+ BoopStrike - Deauthentication attacks
-+ BoopCoil   - Deauth attack detector
-+ Boop       - An airmon-ng clone
+app = boop.BoopSniff(boop.WIRELESS_DEVICES[0])
+app.packets = 0
 
-More ideas are welcome.
-Email me @: jacobsin1996@gmail.com
+@app.handler(boop.MGMT_DEAUTH)
+def pkt(self, p):
+    self.packets += 1
+    return
 
-# Examples:
+@app.handler(boop.MGMT_BEACON)
+def pkt(self, p):
+    self.packets += 1
+    return
 
-![This Used To Be An Image But Now It Is Not. :(](Images/Running.png "BoopSuite")
+@app.printer()
+def printa(self):
+    while True:
+        print(self.packets)
+        time.sleep(5)
 
-#### To start sniffing:
+app.run()
 
-`boopsniff -i wlan1mon`
+```
 
-#### To specify a channel:
+Import the modules you need, add handlers for the packets you want and parse away.
 
-`boopsniff -i wlan1mon -c 6`
+List of fill packet types:
 
-#### Boop also works on the 5ghz spectrum if you have a supporting card:
+* MGMT_ASSOC_REQ
+* MGMT_ASSOC_RESP
+* MGMT_REASSOC_REQ
+* MGMT_REASSOC_RESP
+* MGMT_PROBE_REQ
+* MGMT_PROBE_RESP
+* MGMT_BEACON
+* MGMT_ATIM
+* MGMT_DISASSOC
+* MGMT_AUTH
+* MGMT_DEAUTH
+* CTRL_POLL
+* CTRL_RTS
+* CTRL_CTS
+* CTRL_ACK
+* CTRL_CFEND
+* CTRL_CFECFA
+* DATA_ANY
 
-`boopsniff -i wlan1mon -f 5`
+### Note:
 
-#### Reporting can also be enabled:
+I use this project personally for my wireless endeavours,
+feel free to use, modify and extend.
 
-`boopsniff -i wlan1mon -r ~/report.txt`
+# Requirements:
 
-#### If some processes are interfering then you can preemptively kill them with:
-
-`boopsniff -i wlan1mon -k`
-
-#### If you want to see unassociated clients:
-
-`boopsniff -i wlan1mon -u`
-
-#### If you want to filter by a specific AP mac address:
-
-`boopsniff -i wlan1mon -a xx:xx:xx:xx:xx:xx`
-
-#### New Update includes a gui tool:
-
-`boopsniff_gui`
-
-#### Set card to monitor mode:
-
-`boop -i wlan1`
-
-#### Set card to managed mode:
-
-`boop -i wlan1mon`
-
-#### Set card to a specific name:
-
-`boop -i wlan1 -n boop1`
-
-note: will enable or disable monitor mode accordingly.
-
-#### Set channel on card:
-
-`boop -i wlan1 -c 11`
-
-Note: Will do error checking if you specify a channel the card doesnt support and is ready for cards supporting the 5GHz network.
-
-#### Kill any interfering tasks:
-
-`boop -i wlan1 -k`
-
-#### Put it all together:
-
-`boop -i wlan1 -n boop1 -c 11 -k`
-
-NOTE: boop will always switch the mode from managed to monitor and vice versa.
-
-I'm not going to continue updating the GUI much as it's a pain and way less functional. Don't hate me.
-
-![This Used To Be An Image But Now It Is Not. :(](Images/GUI.png "BoopSuite")
-
-Note: all pcap files will be saved in the directory ~/pcaps
-
-Note: since I haven't quite figured out how to determine which eapol
-message is which about 5% of the pcap files will be invalid.
-stay patient, I will figure it out.
-
-#### More options are coming in the future.
++ python3
++ everything in the requirements.txt
 
 # Installation:
 
 #### To install open a terminal and type:
 
 ```
-git clone https://github.com/M1ND-B3ND3R/BoopSuite.git
-cd BoopSuite
-pip install -r requirements.txt
-chmod +x setup.py
-./setup.py
+pip3 install boop
 ```
-
-The setup includes creating two symbolic links for the gui and cli version of
-the tool so it can be run from anywhere.
-
-# Upgrade:
-
-#### To upgrade open a terminal and type:
-
-##### Requires root to install
-
-Root is dangerous so always check packages before running them as root.
-My code is not malicious, however, you should always be wary.
-
-```
-git clone https://github.com/M1ND-B3ND3R/BoopSuite.git
-cd BoopSuite
-chmod +x setup.py
-./setup.py
-```
-
-# Reference:
-
-The top line is formatted as follows:
-
-`[+] Time: TIME_ELAPSED Slithering: [CHANNEL] - [boopstrike: RECENT HANDHAKE CAPTURED] - [AMOUNT OF HANDSHAKES]`
-
-Next line is the start of the Access Point table and is formatted as follows:
-
-`[Mac address] [Encryption] [Channel] [Vendor] [Signal] [Beacons] [SSID]`
-
-The Line that starts the client table is formatted as follows:
-
-`[Mac address] [AP Mac address] [Noise] [Signal] [AP SSID]`
-
-
-# Contributors:
-
-+ M1ND-B3ND3R
-+ Sean Bangerter - Proofing my readme
-+ Boop - My pet ball python
 
 # Motivation:
 
@@ -174,13 +95,14 @@ to myself that I can do things that were previously impossible to me.
 
 # In Progress:
 
-+ Wireless card discovery in VM for kali.
-
-+ Creating a window that pops up when you click on a client or access point in the
-gui that will display more stats.
-
 + Code Fixes will be happening.
++ More functional API and better imports
++ recreating the old boopsuite sniffer in the __main__ file
++ argparsing for said file
 
 # License:
 
-GNU Public License V3
+Logos are all free to use.
+
+MIT License
+(c) MisterBianco, 2017
